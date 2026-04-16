@@ -1,52 +1,6 @@
-# WiFi CSI Fall Detection System
-
-An AI-powered fall detection system using WiFi Channel State Information (CSI). This project utilizes Deep Learning (ResNet1D and CNN+biLSTM) to identify fall events from WiFi signal disturbances.
-
-## 🚀 Features
-- **Real-time Detection**: Live monitoring of WiFi CSI data via serial port.
-- **Deep Learning Models**: Includes ResNet1D and Hybrid CNN-biLSTM architectures.
-- **Automated Alerts**: Integrated WhatsApp notifications via `pywhatkit` when a fall is detected.
-- **Data Collection**: Built-in tools for collecting and labeling new CSI data.
-- **Visualization**: Real-time plotting of signal magnitudes and detection confidence.
-
-## 🛠️ Technologies Used
-- **Python 3.x**
-- **TensorFlow / Keras**: For building and training deep learning models.
-- **Scikit-learn**: Data preprocessing and evaluation metrics.
-- **Pandas & NumPy**: Data manipulation and signal processing.
-- **Matplotlib & Seaborn**: Data visualization and confusion matrices.
-- **Tkinter**: Graphical User Interface (GUI).
-- **PySerial**: For communication with WiFi CSI hardware.
-- **PyWhatKit**: For automated WhatsApp alerts.
-
-## 📂 Project Structure
-- `final model.py`: Main script for training the ResNet1D model.
-- `iDcnn+biLSTM live/`: Contains the live application and hybrid model logic.
-  - `app.py`: The main GUI application for real-time detection.
-- `MODELS/`: Pre-trained models and scalers.
-- `RAW/`, `TEST/`, `NEW_ROOM_DATA/`: Datasets containing CSI samples (Fall vs. No-Fall).
-- `message.py`: Script for handling alerts and notifications.
-
-## ⚙️ Setup & Installation
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/YOUR_USERNAME/wifi-csi-fall-detection.git
-   cd wifi-csi-fall-detection
-   ```
-2. **Install dependencies**:
-   ```bash
-   pip install tensorflow scikit-learn pandas numpy matplotlib pyserial pywhatkit joblib seaborn
-   ```
-3. **Hardware Setup**:
-   - Connect your WiFi CSI sensing device (e.g., ESP32 with CSI firmware).
-   - Update the `_PORT` variable in `app.py` or `message.py` to match your device's COM port (e.g., `COM5`).
-
-## 🖥️ Usage
-- **To Train the Model**: Run `python "final model.py"`.
-- **To Start Live Detection**: Run `python "iDcnn+biLSTM live/app.py"`.
-
-## 📊 Results
-The system achieves high accuracy in detecting falls by analyzing the amplitude variations in WiFi subcarriers. Detailed performance metrics and confusion matrices can be found in the `MODELS/` directory.
-
----
-*Developed as part of a WiFi CSI Mini Project.*
+📶 WiFi CSI Fall Detection SystemAn AI-powered fall detection system that leverages Channel State Information (CSI) from WiFi signals. By analyzing subcarrier disturbances between an ESP32 transmitter and receiver, the system identifies human falls using advanced Deep Learning architectures.🚀 FeaturesNon-Invasive Monitoring: Detects falls without cameras or wearable sensors, preserving privacy.Deep Learning Core: Dual-model support featuring ResNet1D and a Hybrid CNN+biLSTM for spatial-temporal feature extraction.Real-time Processing: Live CSI stream processing via Serial with a responsive Tkinter GUI.Automated Emergency Response: Immediate WhatsApp alerts via pywhatkit upon fall detection.Signal Visualization: Dynamic plotting of amplitude variations across 64 subcarriers.🔌 Hardware ArchitectureThe system operates using a Transmitter-Receiver (Tx-Rx) pair to create a sensing zone.Transmitter (Tx): ESP32 configured to broadcast injection packets at a constant rate (e.g., 100Hz).Receiver (Rx): ESP32 running custom CSI-collection firmware (using the ESP-CSI toolkit) to capture the Channel State Information.Communication: The Receiver sends the raw CSI data frames (amplitude and phase) to a host PC via UART/Serial communication.🧠 Technical PipelineData Acquisition: ESP32 captures raw OFDM subcarrier data.Preprocessing:Noise reduction using moving average filters.Standardization via StandardScaler to normalize amplitude spikes.Feature Extraction: The CNN layers extract spatial features from the subcarriers, while the biLSTM captures the temporal sequence of a fall movement.Classification: Softmax layer outputs the probability of a "Fall" vs. "Normal Activity" (Walking, Sitting, Standing).🛠️ Technologies UsedCategoryToolsHardwareESP32 (WROOM-32), USB-to-UART BridgesDeep LearningTensorFlow, Keras, ResNet1D, CNN-biLSTMSignal ProcessingNumPy, Pandas, Scikit-learnVisualizationMatplotlib, Seaborn, TkinterCommunicationPySerial, PyWhatKit (WhatsApp API)📂 Project Structureapp.py: The heart of the project—launches the GUI for live detection.final model.py: Training script for the ResNet1D architecture.MODELS/: Stores trained .h5 files and serialized scalers.RAW/ / TEST/: Datasets containing captured CSI amplitude logs.message.py: Logic for triggering emergency WhatsApp notifications.⚙️ Setup & InstallationHardware Prep:Flash the Transmitter ESP32 with an injection code.Flash the Receiver ESP32 with CSI-extraction firmware.Clone & Install:Bashgit clone https://github.com/joseph-m-Benny/wifi-csi-fall-detection.git
+cd wifi-csi-fall-detection
+pip install tensorflow scikit-learn pandas numpy matplotlib pyserial pywhatkit joblib seaborn
+Configuration:Open app.py and set your SERIAL_PORT (e.g., COM5 or /dev/ttyUSB0).Ensure your WhatsApp Web is logged in for pywhatkit alerts.🖥️ UsageLive Monitoring:Bashpython "iDcnn+biLSTM live/app.py"
+Retraining:Bashpython "final model.py"
+Developed as a WiFi CSI Research Project for S6 Mini Project.
