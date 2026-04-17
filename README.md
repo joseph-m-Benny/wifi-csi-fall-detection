@@ -58,7 +58,7 @@ This hybrid model combines the strengths of Convolutional Neural Networks (CNNs)
 
 1.  **Clone the repository**:
     ```bash
-    git clone https://github.com/YOUR_USERNAME/wifi-csi-fall-detection.git
+    git clone https://github.com/joseph-m-Benny/wifi-csi-fall-detection.git
     cd wifi-csi-fall-detection
     ```
 
